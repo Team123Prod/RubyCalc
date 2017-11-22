@@ -1,0 +1,57 @@
+<form name="form">
+    <input type="text" name="Result" id="Result" /><p>
+    <input type="button" value="0" id="btn0" onclick="fNum(this)" />
+    <input type="button" value="1" id="btn1" onclick="fNum(this)" />
+    <input type="button" value="2" id="btn2" onclick="fNum(this)" />
+    <input type="button" value="3" id="btn3" onclick="fNum(this)" />
+    <input type="button" value="4" id="btn4" onclick="fNum(this)" />
+<p>
+    <input type="button" value="5" id="btn5" onclick="fNum(this)" />
+    <input type="button" value="6" id="btn6" onclick="fNum(this)" />
+    <input type="button" value="7" id="btn7" onclick="fNum(this)" />
+    <input type="button" value="8" id="btn8" onclick="fNum(this)" />
+    <input type="button" value="9" id="btn9" onclick="fNum(this)" />
+<p>
+    <input type="button" value="+" id="btnPlus" onclick="fOp(this)" />
+    <input type="button" value="-" id="btnMinus" onclick="fOp(this)" />
+    <input type="button" value="*" id="btnMult" onclick="fOp(this)" />
+    <input type="button" value="/" id="btnDiv" onclick="fOp(this)" />
+    <input type="button" value="=" id="btnRes" onclick="fOp(this)" />
+</form>
+
+ <script language="JavaScript">
+ var x = 0;
+ var y = 0; 
+ var op = '';
+ 
+        function fNum(p){
+			form.Result.value += p.value;
+        }
+		
+        function fOp(p){
+            if (p.value != '=')
+            {
+				x = form.Result.value;
+				form.Result.value = "";
+				op = p.value;
+            }
+            else
+            {
+                y = form.Result.value;
+				form.Result.value = calc(x, y, op);
+            }
+        }
+
+	function calc(a, b, op){
+			if (op === '+')
+				op = '%2b';
+			
+			var req = 'a='+a+'&b='+b+'&op='+op;
+			var rr = new XMLHttpRequest();
+			rr.open('Post', 'http://localhost:3000/', false);
+			rr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			rr.send(req);
+			return rr.response;
+		}	 
+	 
+    </script>
